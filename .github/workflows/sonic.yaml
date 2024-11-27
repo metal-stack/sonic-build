@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  test:
-    name: Build SONiC
+  sonic-vs:
+    name: Build SONiC VS
     runs-on: self-hosted
 
     steps:
