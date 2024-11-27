@@ -44,6 +44,45 @@ jobs:
           target/sonic-vs.img.gz
       if: ${{ github.event_name == 'release' }}
 
+  sonic-broadcom:
+    name: Build SONiC Broadcom
+    runs-on: self-hosted
+
+    steps:
+    - name: Gain back workspace permissions # https://github.com/actions/checkout/issues/211
+      run: |
+        [ -d "${GITHUB_WORKSPACE}" ] && sudo chown -R $USER:$USER ${GITHUB_WORKSPACE}
+
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install build requirements
+      shell: bash
+      run: |
+        sudo apt install --yes j2cli
+        sudo mkdir -p /var/cache/sonic/artifacts
+        sudo chmod 777 /var/cache/sonic/artifacts
+
+    - name: build sonic-broadcom
+      shell: bash
+      run: |
+        git clone --recurse-submodules https://github.com/sonic-net/sonic-buildimage.git
+        cd sonic-buildimage
+        git checkout 202405
+        make init
+        make configure PLATFORM=broadcom
+        make SONIC_BUILD_JOBS=8 target/sonic-broadcom.img.gz
+        ls -l target
+
+    - name: Upload Release Asset
+      uses: softprops/action-gh-release@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        files: |
+          target/sonic-broadcom.img.gz
+      if: ${{ github.event_name == 'release' }}
+
+
   release-drafter:
     runs-on: ubuntu-latest
 
