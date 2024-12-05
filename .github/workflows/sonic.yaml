@@ -71,7 +71,7 @@ jobs:
         git checkout 202405
         make init
         make configure PLATFORM=broadcom
-        make SONIC_BUILD_JOBS=8 target/sonic-broadcom.img.gz
+        make SONIC_BUILD_JOBS=8 target/sonic-broadcom.bin
         ls -l target
 
     - name: Upload Release Asset
