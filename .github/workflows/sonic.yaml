@@ -30,7 +30,7 @@ jobs:
       run: |
         git clone --recurse-submodules https://github.com/sonic-net/sonic-buildimage.git
         cd sonic-buildimage
-        git checkout 202405
+        git checkout 202411
         make init
         make configure PLATFORM=vs
         make SONIC_BUILD_JOBS=8 target/sonic-vs.img.gz
@@ -68,7 +68,7 @@ jobs:
       run: |
         git clone --recurse-submodules https://github.com/sonic-net/sonic-buildimage.git
         cd sonic-buildimage
-        git checkout 202405
+        git checkout 202411
         make init
         make configure PLATFORM=broadcom
         make SONIC_BUILD_JOBS=8 target/sonic-broadcom.bin
