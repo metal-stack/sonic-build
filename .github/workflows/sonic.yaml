@@ -68,9 +68,8 @@ jobs:
     - name: build sonic-broadcom
       shell: bash
       run: |
-        git clone --recurse-submodules https://github.com/sonic-net/sonic-buildimage.git
+        git clone -b 202311 --recurse-submodules https://github.com/sonic-net/sonic-buildimage.git
         cd sonic-buildimage
-        git checkout 202311
         git apply ../patches/202311-accton-platform-support.patch
         make init
         make configure PLATFORM=broadcom
