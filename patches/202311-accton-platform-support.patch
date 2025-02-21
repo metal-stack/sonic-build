@@ -144,8 +144,39 @@ index 6c57150cd..c35b5bcf6 100755
 +Ethernet52      73,74,75,76           Eth53(Port53)      53      100000         off
 +Ethernet56      69,70,71,72           Eth54(Port54)      54      100000         off
 diff --git a/device/accton/x86_64-accton_as4630_54pe-r0/custom_led.bin b/device/accton/x86_64-accton_as4630_54pe-r0/custom_led.bin
-index 0f6e37a82..275d3566e 100644
-Binary files a/device/accton/x86_64-accton_as4630_54pe-r0/custom_led.bin and b/device/accton/x86_64-accton_as4630_54pe-r0/custom_led.bin differ
+index 0f6e37a82492be625674928a121f6394b7e9f964..275d3566e8908a96aef6562c92ab143d48f48379 100644
+GIT binary patch
+literal 904
+zcmZ|M%}*0i5CHJm?zUZ^m5PP3rNH)!0`-Fr4PZ3BZrh<A3I;@>Btk2Oy=b`D;H}aq
+z)|iM<Q%E!>$^kJX9E4~BNeTZzH~s_lA{;#Q?4?c{Fvi5gZ)TEtnaO*vxHW}0Fp428
+zetxtGZt&z>BM?@9jtIRkm0z0vyUmwXwgX9J8=giUHks9R9K-=Ng7Ua-X)(&A6tI}y
+z(adI%%f40WG^3)+^UKg~)@<H2`+eAu?gEoI-y*w)MmFEF7~uN2?1SOUlB%XL8A*qx
+z@C(f_I$GH~#i`BW@q`AgK~CAzI0q?-!FZ@Vqu+6p`hq6N+&g2C%bE+~Q6&~kM-~64
+zTB8lO{@Kv-*9NOr|DO%KW~of8F36Q^D0Ee_?kFFsk;>fzG11Y;mK8~xMzMVJ73i>N
+zR%gaO2alyBWF$_0!p2aq=rrc64H^q6ib5erk*mZPVg?YC>hn>d$8x@_6Y}8$hT!fQ
+z{)*+lSVrFS0Zra@9B{DiXZQv<HHz%QoeAI2hO`0qVto!93uBgEWelgVPXSHv&V**v
+z)}d8t72+|I!^&PM2JJd^Ys+1ahw}y}MAn^wkZK;)^&0%&G|ss<4Q@VO<5J?HYazZD
+zXHG7mI0K1=#C~G`_Wq2y03L8bTXpm!=G>FO`*u+0H8cKo3X4DVo0oQ$a0TDvCoJx+
+zZUU4_r7P-1fJ0&ffJRbJ8ptVPB_~N8sU;R-CMQS@F_9`#O^ie&dSW0v5eP?g#7|C>
+z4$?`^kuGwEoF#7JAx`2VKGIISq>Z!^nKY9Y(nK6YB6boa3JH)9xk|zWw$kcEBR5bp
+zKPejg`aCCB`Gq_$^L|bPxpV-#ITYl%!Q*q{JQEG=`g~P8pXd97%6I?@f(*OA0l<3F
+A3IG5A
+
+literal 856
+zcmYk(JxmjE7zXh7-z!k02+CI}QrjL?OZ@;Ui9po5D}Ax4A%GzQSBO_MITr)CFcQ!R
+zCL|)!0L4TT7bG!6!{kRG42I}%opdtYx@f|z4n9;-hTn6`-E;rvZfE@~U*%4Ya%O#M
+zjby6Z@b^&E{MKU+&uc%@lksIHKgpu5DzL&8=Zh8bXo3x<xkSd{D~{MRPNc}C!84|4
+znWhbWG~v{$Ey*V|n<W-0SeovqZC8wD+!c*pnpOmLu|u<^OYv+$#+&PD$o1@|!P~i>
+z5C3{v_Vs*p>6CJphkdlD6j3)<qeqcz(KCUxXEu-`ml4*@Cq4EiN|lCbzM(#D%|%nH
+zuBE6mw(Tx7?=vmjVU<fvf%nbQcYPJ#;iWm6kOEGv4Cn9Ty#>y{3oh|pcdR-<vr0D?
+zD>pr}s%SPiwr@A3$FsZ3rQC9|Ze{;$uk=p1r?|iU|9-Ltvv%xFW)-f#Og<qmu`RsJ
+zj!fL4gj4tn16OQ~j<fl}p!JL;bAe@3v@H?yWBs1_GeQ1duGR9bVfH9v+L+p-y@*In
+zaUL?oh1V2iU4K8=%gx$n>jsCEA?-G{_ws5)3fBmC<Wn}UW%C-zl2PQ>45@X}*fcIS
+zilnVkO-?4al3T-D*QK?cw{Q3rukcgedDqoS^n8uz9Ig=}(m;iFh(Q#pzy%dh31v_Y
+zhu|=jKq(Z%K_~(z6v6>000-njK1g5(0X7K1NeDtcoPh>71*buVI`DxXj>8EEz%e)q
+zUZ@2R)W8v_1~*KZx=XaxjO&j4P@yHfg`qr4YU}e%sePIxyOfa*^8U*1-8JAS3l)43
+U-UrG<IYlld;#p8BL*9{&-#Eg>D*ylh
+
 diff --git a/device/accton/x86_64-accton_as4630_54pe-r0/sonic_platform/chassis.py b/device/accton/x86_64-accton_as4630_54pe-r0/sonic_platform/chassis.py
 index c1192b3a2..310d0433d 100644
 --- a/device/accton/x86_64-accton_as4630_54pe-r0/sonic_platform/chassis.py
@@ -2228,8 +2259,26 @@ index 1dcd7e3ef..ca5589273 100755
  phy_chain_rx_lane_map_physical{1.0}=0x1320
  phy_chain_rx_lane_map_physical{5.0}=0x0123
 diff --git a/device/accton/x86_64-accton_as7726_32x-r0/custom_led.bin b/device/accton/x86_64-accton_as7726_32x-r0/custom_led.bin
-index 73dcf0e08..f8a976c96 100755
-Binary files a/device/accton/x86_64-accton_as7726_32x-r0/custom_led.bin and b/device/accton/x86_64-accton_as7726_32x-r0/custom_led.bin differ
+index 73dcf0e085dca7dd6a5ed729da4bf9b1ef737e34..f8a976c96436e2ba170c163792238aeb771edaaf 100755
+GIT binary patch
+delta 308
+zcmdnPxq*Fx4x{NrU1>)3jh^mI^$ZFH?jZbOtG`>rmZlA?GK>?&W#%vlN6vI(G?u#H
+z>GuEo)Bg-=j2faBt-ZZnW;1AI%!)do9L*poBk3^HiR+?(+GKY23rxz4v!on?oq`?Z
+z7#SWgs98%!XMju)zn~!lGUM=nMh(G>+UO?K1C3z2IGLU40^{u2?2K0$l;xbQC1-=R
+zN<g(P18NnzD1)vQsFNM8lL@HvHiMkAjpUPzWEn}IPDPpj-#dXig)j1X&v8p}S;C;5
+r@d(M`5WPwuYeAZ4Gs-z<WpK=%%`h*BX#>liiEbbE9&r2r|Gzx|^2BN)
+
+delta 553
+zcmZ9Iu}|AT6vpqJgB^m9pcxvPLozZ#q;65GE<guTAAMGvi3A}f7V6N&QkRT~4v9jy
+zE}$&Lrc?ic6t$hG#K>r?8Bn`e>cCJTWn(<fae{#9>E3tm`@QdVwUhDvC$MqwG!OjS
+z8=E%v+-eS1CU(-M8jPDXAi8EMA?OfMU0l@dk*=C!!JlLGaq4&aC75syI*Ev0xBEZd
+z;TFEe=zFWHF*s=B7qVG>&z=W!OkAA_Sk%LM>0iz#tFBi&H5@X{W{N~_VaLjZQw_tz
+zwx$Nu054mtS+!SL@Nk*M!^c8p6;!x~G$IQ`{!IEmMH4@f3No%l#5hE$%{%DKIIf5A
+zq7W>z4HQ?OCHi4lE>+g=qC1uvwlx}n?`zPrn+D^_z(<Koak8X_$$L)}A;oFL(E-L|
+zfIk4N3;~V=<igbi&|Xt!8zZN;L#Oo6sVoSU&N9GsM3=N-*A^{QDC3$W<YkR@kbykh
+zUcYoduxFA}kY~sbIFCyI@7=ItP2L2dy{6%p<eJGy=2n#0;(<7o3#27n2`l(l!s1wQ
+Y-E}j*Pmap8%TD&u!>`!?C4^YJ29%n;j{pDw
+
 diff --git a/device/accton/x86_64-accton_as7816_64x-r0/sonic_platform/chassis.py b/device/accton/x86_64-accton_as7816_64x-r0/sonic_platform/chassis.py
 index 164da5fd6..44a759045 100644
 --- a/device/accton/x86_64-accton_as7816_64x-r0/sonic_platform/chassis.py
