@@ -60,6 +60,7 @@ jobs:
     - name: Install build requirements
       shell: bash
       run: |
+        sudo apt update 
         sudo apt install --yes j2cli
         sudo mkdir -p /var/cache/sonic/artifacts
         sudo chmod 777 /var/cache/sonic/artifacts
