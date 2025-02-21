@@ -71,6 +71,7 @@ jobs:
         git clone --recurse-submodules https://github.com/sonic-net/sonic-buildimage.git
         cd sonic-buildimage
         git checkout 202311
+        git apply ../patches/202311-accton-platform-support.patch
         make init
         make configure PLATFORM=broadcom
         make SONIC_BUILD_JOBS=12 ENABLE_ZTP=y target/sonic-broadcom.bin
