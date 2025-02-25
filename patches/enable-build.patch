@@ -1,0 +1,189 @@
+diff --git a/Makefile b/Makefile
+index c560b83c7..914988a07 100644
+--- a/Makefile
++++ b/Makefile
+@@ -2,8 +2,8 @@
+ 
+ NOJESSIE ?= 1
+ NOSTRETCH ?= 1
+-NOBUSTER ?= 0
+-NOBULLSEYE ?= 0
++NOBUSTER ?= 1
++NOBULLSEYE ?= 1
+ NOBOOKWORM ?= 0
+ 
+ override Q := @
+diff --git a/dockers/docker-ptf/Dockerfile.j2 b/dockers/docker-ptf/Dockerfile.j2
+index 5148dd112..032360eb3 100644
+--- a/dockers/docker-ptf/Dockerfile.j2
++++ b/dockers/docker-ptf/Dockerfile.j2
+@@ -183,6 +183,8 @@ RUN python3 -m pip install --upgrade --ignore-installed pip
+ RUN pip3 install --upgrade --ignore-installed pip
+ {% endif %}
+ 
++RUN rm -rf /usr/lib/python3*/EXTERNALLY_MANAGED
++
+ # Install all python modules from pypi. python3-scapy is exception, ptf debian package requires python3-scapy
+ RUN pip3 install setuptools \
+     && pip3 install supervisor \
+diff --git a/files/build/versions/dockers/docker-dash-engine/versions-py3 b/files/build/versions/dockers/docker-dash-engine/versions-py3
+index da8137a38..7c65033a6 100644
+--- a/files/build/versions/dockers/docker-dash-engine/versions-py3
++++ b/files/build/versions/dockers/docker-dash-engine/versions-py3
+@@ -8,7 +8,7 @@ protobuf==3.18.1
+ ptf==0.9.1
+ pycparser==2.21
+ pypcap==1.2.3
+-scapy==2.4.5
++scapy==2.5.0
+ setuptools==45.2.0
+ six==1.16.0
+ supervisor==4.1.0
+diff --git a/files/build_templates/sonic_debian_extension.j2 b/files/build_templates/sonic_debian_extension.j2
+index 85f136ef1..59bd0c386 100644
+--- a/files/build_templates/sonic_debian_extension.j2
++++ b/files/build_templates/sonic_debian_extension.j2
+@@ -130,6 +130,7 @@ sudo https_proxy=$https_proxy LANG=C chroot $FILESYSTEM_ROOT pip3 install "redis
+ 
+ # Install redis-dump-load Python 3 package
+ # Note: the scripts will be overwritten by corresponding Python 2 package
++sudo rm -f /usr/lib/python3*/EXTERNALLY-MANAGED
+ REDIS_DUMP_LOAD_PY3_WHEEL_NAME=$(basename {{redis_dump_load_py3_wheel_path}})
+ sudo cp {{redis_dump_load_py3_wheel_path}} $FILESYSTEM_ROOT/$REDIS_DUMP_LOAD_PY3_WHEEL_NAME
+ sudo https_proxy=$https_proxy LANG=C chroot $FILESYSTEM_ROOT pip3 install $REDIS_DUMP_LOAD_PY3_WHEEL_NAME
+diff --git a/platform/broadcom/rules.mk b/platform/broadcom/rules.mk
+index e3f0e46cc..1f7b0f763 100755
+--- a/platform/broadcom/rules.mk
++++ b/platform/broadcom/rules.mk
+@@ -4,24 +4,24 @@ include $(PLATFORM_PATH)/sai.mk
+ # * Nokia
+ # * Juniper
+ # * Ragile
+-include $(PLATFORM_PATH)/platform-modules-nokia.mk
+-include $(PLATFORM_PATH)/platform-modules-dell.mk
+-include $(PLATFORM_PATH)/platform-modules-arista.mk
++#include $(PLATFORM_PATH)/platform-modules-nokia.mk
++#include $(PLATFORM_PATH)/platform-modules-dell.mk
++#include $(PLATFORM_PATH)/platform-modules-arista.mk
+ #include $(PLATFORM_PATH)/platform-modules-ingrasys.mk
+ include $(PLATFORM_PATH)/platform-modules-accton.mk
+-include $(PLATFORM_PATH)/platform-modules-alphanetworks.mk
++#include $(PLATFORM_PATH)/platform-modules-alphanetworks.mk
+ #include $(PLATFORM_PATH)/platform-modules-inventec.mk
+-include $(PLATFORM_PATH)/platform-modules-cel.mk
++#include $(PLATFORM_PATH)/platform-modules-cel.mk
+ #include $(PLATFORM_PATH)/platform-modules-delta.mk
+-include $(PLATFORM_PATH)/platform-modules-quanta.mk
++#include $(PLATFORM_PATH)/platform-modules-quanta.mk
+ ##include $(PLATFORM_PATH)/platform-modules-mitac.mk
+ #include $(PLATFORM_PATH)/platform-modules-juniper.mk
+ #include $(PLATFORM_PATH)/platform-modules-brcm-xlr-gts.mk
+ #include $(PLATFORM_PATH)/platform-modules-ruijie.mk
+ #include $(PLATFORM_PATH)/platform-modules-ragile.mk
+ #include $(PLATFORM_PATH)/platform-modules-tencent.mk
+-include $(PLATFORM_PATH)/platform-modules-ufispace.mk
+-include $(PLATFORM_PATH)/platform-modules-micas.mk
++#include $(PLATFORM_PATH)/platform-modules-ufispace.mk
++#include $(PLATFORM_PATH)/platform-modules-micas.mk
+ include $(PLATFORM_PATH)/docker-syncd-brcm.mk
+ include $(PLATFORM_PATH)/docker-syncd-brcm-rpc.mk
+ include $(PLATFORM_PATH)/docker-saiserver-brcm.mk
+diff --git a/platform/broadcom/sonic-platform-modules-accton/debian/rules b/platform/broadcom/sonic-platform-modules-accton/debian/rules
+old mode 100644
+new mode 100755
+diff --git a/rules/config b/rules/config
+index 3d3a81ce6..e93259195 100644
+--- a/rules/config
++++ b/rules/config
+@@ -10,7 +10,7 @@
+ # SONIC_CONFIG_BUILD_JOBS - set number of jobs for parallel build.
+ # Corresponding -j argument will be passed to make command inside docker
+ # container.
+-SONIC_CONFIG_BUILD_JOBS = 1
++SONIC_CONFIG_BUILD_JOBS = 4
+ 
+ # SONIC_CONFIG_MAKE_JOBS - set number of parallel make jobs per package.
+ # Corresponding -j argument will be passed to make/dpkg commands that build separate packages
+@@ -26,7 +26,7 @@ DEFAULT_BUILD_LOG_TIMESTAMP = none
+ # This options will speed up docker image build time.
+ # NOTE: SONIC_USE_DOCKER_BUILDKIT will produce larger installable SONiC image
+ # because of a docker bug (more details: https://github.com/moby/moby/issues/38903)
+-# SONIC_USE_DOCKER_BUILDKIT = y
++SONIC_USE_DOCKER_BUILDKIT = n
+ 
+ # SONIC_CONFIG_USE_NATIVE_DOCKERD_FOR_BUILD - use native dockerd for build.
+ # If set to y SONiC build container will use native dockerd instead of dind for faster build.
+@@ -52,7 +52,7 @@ DEFAULT_USERNAME = admin
+ DEFAULT_PASSWORD = YourPaSsWoRd
+ 
+ # ENABLE_ZTP - installs Zero Touch Provisioning support.
+-# ENABLE_ZTP = y
++ENABLE_ZTP = y
+ 
+ # INCLUDE_PDE - Enable platform development enviroment
+ # INCLUDE_PDE = y
+@@ -95,7 +95,7 @@ ENABLE_ORGANIZATION_EXTENSIONS = y
+ # DEFAULT_KERNEL_PROCURE_METHOD - default method for obtaining kernel
+ #   build:    build kernel from source
+ #   download: download pre-built kernel from Azure storage.
+-DEFAULT_KERNEL_PROCURE_METHOD = build
++DEFAULT_KERNEL_PROCURE_METHOD = download
+ 
+ # FRR user and group id values. These only take effect when SONIC_ROUTING_STACK is frr.
+ # Note: these values match the admin uid/gid of the host's admin account. If these values
+@@ -115,7 +115,7 @@ FRR_USER_GID = 300
+ #	rcache  :  Use cache if exists, but dont update the cache
+ #	cache   :  Same as rwcache
+ # SONIC_DPKG_CACHE_SOURCE - Stores the cache location details
+-SONIC_DPKG_CACHE_METHOD ?= none
++SONIC_DPKG_CACHE_METHOD ?= cache
+ SONIC_DPKG_CACHE_SOURCE ?= /var/cache/sonic/artifacts
+ 
+ # Default VS build memory preparation
+@@ -180,10 +180,10 @@ ENABLE_NATIVE_WRITE = y
+ INCLUDE_MACSEC = y
+ 
+ # INCLUDE_GBSYNCD - build docker-gbsyncd-* for gearbox support
+-INCLUDE_GBSYNCD ?= y
++INCLUDE_GBSYNCD ?= n
+ 
+ # INCLUDE_TEAMD - build docker-teamd for LAG protocol support
+-INCLUDE_TEAMD ?= y
++INCLUDE_TEAMD ?= n
+ 
+ # INCLUDE_ROUTER_ADVERTISER - build docker-router-advertiser for router advertisements support
+ INCLUDE_ROUTER_ADVERTISER ?= y
+@@ -283,7 +283,7 @@ MIRROR_SNAPSHOT ?= n
+ #	none    :  no caching
+ #	cache   :  Use cache if exists else build the source and update the cache
+ # SONIC_VERSION_CACHE_SOURCE - Defines the version cache location details
+-SONIC_VERSION_CACHE_METHOD ?= none
++SONIC_VERSION_CACHE_METHOD ?= cache
+ SONIC_VERSION_CACHE_SOURCE ?= $(SONIC_DPKG_CACHE_SOURCE)/vcache
+ 
+ # SONiC docker registry
+diff --git a/sonic-slave-bookworm/Dockerfile.j2 b/sonic-slave-bookworm/Dockerfile.j2
+index 4e2c5e1eb..90a66d940 100644
+--- a/sonic-slave-bookworm/Dockerfile.j2
++++ b/sonic-slave-bookworm/Dockerfile.j2
+@@ -538,6 +538,8 @@ RUN eatmydata apt-get install -y golang-go \
+  && ln -sf /usr/lib/go-1.19 /usr/local/go
+ {%- endif %}
+ 
++RUN rm -f /usr/lib/python3*/EXTERNALLY-MANAGED
++
+ RUN pip3 install --upgrade pip==24.2
+ RUN apt-get purge -y python3-pip
+ 
+diff --git a/sonic-slave-buster/Dockerfile.j2 b/sonic-slave-buster/Dockerfile.j2
+index b65a1a089..8e78c3573 100644
+--- a/sonic-slave-buster/Dockerfile.j2
++++ b/sonic-slave-buster/Dockerfile.j2
+@@ -68,6 +68,7 @@ RUN pip3 install virtualenv
+ RUN mkdir /python_virtualenv
+ RUN cd /python_virtualenv && python3 -m virtualenv -p /usr/bin/python env2
+ RUN cd /python_virtualenv && python3 -m virtualenv --copies -p /usr/bin/python3 env3
++RUN rm -rf /usr/lib/python3*/EXTERNALLY-MANAGED
+ 
+ RUN PATH=/python_virtualenv/env2/bin/:$PATH pip2 install setuptools==40.8.0 wheel==0.35.1 fastentrypoints pytest pytest-cov pytest-runner==4.4 nose==1.3.7 mockredispy==2.9.3 mock==3.0.5 j2cli==0.3.10 PyYAML==5.4.1 pexpect==4.6.0 Pympler==0.8 ctypesgen==1.0.2 natsort==6.2.1 redis==3.5.3 protobuf==3.17.3
+ RUN PATH=/python_virtualenv/env3/bin/:$PATH pip3 install setuptools==49.6.00 wheel==0.35.1 fastentrypoints pytest pytest-cov pytest-runner==5.2 nose==1.3.7 mockredispy==2.9.3 mock==3.0.5 PyYAML==5.4.1 redis==3.5.3 pexpect==4.8.0 Pympler==0.8 parameterized natsort==6.2.1 MarkupSafe==2.0.1 Jinja2==3.0.3 sphinx && ln -s /python_virtualenv/env3/bin/pytest /python_virtualenv/env3/bin/pytest-3
