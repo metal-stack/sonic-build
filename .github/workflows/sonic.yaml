@@ -74,7 +74,7 @@ jobs:
         git apply ../patches/lldp.patch
         make init
         make configure PLATFORM=broadcom
-        make SONIC_BUILD_JOBS=12 ENABLE_ZTP=y target/sonic-broadcom.bin
+        make SONIC_BUILD_JOBS=12 target/sonic-broadcom.bin
         ls -l target
 
     - name: Upload Release Asset
