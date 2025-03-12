@@ -40,7 +40,7 @@ index da8137a38..7c65033a6 100644
  six==1.16.0
  supervisor==4.1.0
 diff --git a/files/build_templates/sonic_debian_extension.j2 b/files/build_templates/sonic_debian_extension.j2
-index 85f136ef1..59bd0c386 100644
+index d92cb54c4..2b3b47e1b 100644
 --- a/files/build_templates/sonic_debian_extension.j2
 +++ b/files/build_templates/sonic_debian_extension.j2
 @@ -130,6 +130,7 @@ sudo https_proxy=$https_proxy LANG=C chroot $FILESYSTEM_ROOT pip3 install "redis
@@ -88,11 +88,8 @@ index e3f0e46cc..1f7b0f763 100755
  include $(PLATFORM_PATH)/docker-syncd-brcm.mk
  include $(PLATFORM_PATH)/docker-syncd-brcm-rpc.mk
  include $(PLATFORM_PATH)/docker-saiserver-brcm.mk
-diff --git a/platform/broadcom/sonic-platform-modules-accton/debian/rules b/platform/broadcom/sonic-platform-modules-accton/debian/rules
-old mode 100644
-new mode 100755
 diff --git a/rules/config b/rules/config
-index 3d3a81ce6..e93259195 100644
+index 3d3a81ce6..b38c4ed2a 100644
 --- a/rules/config
 +++ b/rules/config
 @@ -10,7 +10,7 @@
@@ -163,27 +160,14 @@ index 3d3a81ce6..e93259195 100644
  
  # SONiC docker registry
 diff --git a/sonic-slave-bookworm/Dockerfile.j2 b/sonic-slave-bookworm/Dockerfile.j2
-index 4e2c5e1eb..90a66d940 100644
+index 4e2c5e1eb..79a4c7148 100644
 --- a/sonic-slave-bookworm/Dockerfile.j2
 +++ b/sonic-slave-bookworm/Dockerfile.j2
-@@ -538,6 +538,8 @@ RUN eatmydata apt-get install -y golang-go \
-  && ln -sf /usr/lib/go-1.19 /usr/local/go
- {%- endif %}
- 
-+RUN rm -f /usr/lib/python3*/EXTERNALLY-MANAGED
-+
- RUN pip3 install --upgrade pip==24.2
- RUN apt-get purge -y python3-pip
- 
-diff --git a/sonic-slave-buster/Dockerfile.j2 b/sonic-slave-buster/Dockerfile.j2
-index b65a1a089..8e78c3573 100644
---- a/sonic-slave-buster/Dockerfile.j2
-+++ b/sonic-slave-buster/Dockerfile.j2
-@@ -68,6 +68,7 @@ RUN pip3 install virtualenv
- RUN mkdir /python_virtualenv
- RUN cd /python_virtualenv && python3 -m virtualenv -p /usr/bin/python env2
- RUN cd /python_virtualenv && python3 -m virtualenv --copies -p /usr/bin/python3 env3
+@@ -63,6 +63,7 @@ RUN apt-get download python3-distutils && eatmydata dpkg --force-all -i python3-
+ RUN apt-get download python3-pip && eatmydata dpkg --force-all -i python3-pip*
+ RUN which pip3 && pip3 install enum34
+ RUN pip3 install virtualenv
 +RUN rm -rf /usr/lib/python3*/EXTERNALLY-MANAGED
  
- RUN PATH=/python_virtualenv/env2/bin/:$PATH pip2 install setuptools==40.8.0 wheel==0.35.1 fastentrypoints pytest pytest-cov pytest-runner==4.4 nose==1.3.7 mockredispy==2.9.3 mock==3.0.5 j2cli==0.3.10 PyYAML==5.4.1 pexpect==4.6.0 Pympler==0.8 ctypesgen==1.0.2 natsort==6.2.1 redis==3.5.3 protobuf==3.17.3
- RUN PATH=/python_virtualenv/env3/bin/:$PATH pip3 install setuptools==49.6.00 wheel==0.35.1 fastentrypoints pytest pytest-cov pytest-runner==5.2 nose==1.3.7 mockredispy==2.9.3 mock==3.0.5 PyYAML==5.4.1 redis==3.5.3 pexpect==4.8.0 Pympler==0.8 parameterized natsort==6.2.1 MarkupSafe==2.0.1 Jinja2==3.0.3 sphinx && ln -s /python_virtualenv/env3/bin/pytest /python_virtualenv/env3/bin/pytest-3
+ # Create target arm python3 virtual environments with all required packages installed
+ RUN mkdir /python_virtualenv
