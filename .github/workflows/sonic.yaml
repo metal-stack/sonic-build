@@ -72,6 +72,7 @@ jobs:
         cd sonic-buildimage
         git apply ../patches/enable-build.patch
         git apply ../patches/lldp.patch
+        git apply ../patches/frr-pythontools.patch
         make init
         make configure PLATFORM=broadcom
         make SONIC_BUILD_JOBS=12 target/sonic-broadcom.bin
