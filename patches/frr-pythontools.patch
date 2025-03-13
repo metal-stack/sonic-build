@@ -11,3 +11,22 @@ index e81105caa..7c6c46a6c 100644
  $(DOCKER_FPM_FRR)_DBG_DEPENDS = $($(DOCKER_SWSS_LAYER_BOOKWORM)_DBG_DEPENDS)
  $(DOCKER_FPM_FRR)_DBG_DEPENDS += $(SWSS_DBG) $(LIBSWSSCOMMON_DBG) \
                                  $(FRR_DBG) $(FRR_SNMP_DBG) $(LIBYANG2_DBG)
+diff --git a/src/sonic-frr/patch/0022-cross-compile-changes.patch b/src/sonic-frr/patch/0022-cross-compile-changes.patch
+index 2e618f059..11defc548 100644
+--- a/src/sonic-frr/patch/0022-cross-compile-changes.patch
++++ b/src/sonic-frr/patch/0022-cross-compile-changes.patch
+@@ -67,10 +67,10 @@ index 43e5d7e61..aa13106fe 100755
+ -	sed -e '1c #!/usr/bin/python3' -i debian/tmp/usr/lib/frr/generate_support_bundle.py
+ -	sed -e '1c #!/usr/bin/python3' -i debian/tmp/usr/lib/frr/frr_babeltrace.py
+ -	sed -e '1c #!/usr/bin/python3' -i debian/tmp/usr/lib/frr/ospfclient.py
+-+	sed -e '1c #!$(shell which $PYTHON)' -i debian/tmp/usr/lib/frr/frr-reload.py
+-+	sed -e '1c #!$(shell which $PYTHON)' -i debian/tmp/usr/lib/frr/generate_support_bundle.py
+-+	sed -e '1c #!$(shell which $PYTHON)' -i debian/tmp/usr/lib/frr/frr_babeltrace.py
+-+	sed -e '1c #!$(shell which $PYTHON)' -i debian/tmp/usr/lib/frr/ospfclient.py
+++	sed -e '1c #!/usr/bin/env python3' -i debian/tmp/usr/lib/frr/frr-reload.py
+++	sed -e '1c #!/usr/bin/env python3' -i debian/tmp/usr/lib/frr/generate_support_bundle.py
+++	sed -e '1c #!/usr/bin/env python3' -i debian/tmp/usr/lib/frr/frr_babeltrace.py
+++	sed -e '1c #!/usr/bin/env python3' -i debian/tmp/usr/lib/frr/ospfclient.py
+  
+  # let dh_systemd_* and dh_installinit do their thing automatically
+  	cp build/tools/frr.service debian/frr.service
