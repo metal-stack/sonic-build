@@ -47,7 +47,7 @@ jobs:
 
   sonic-broadcom:
     name: Build SONiC Broadcom
-    runs-on: self-hosted
+    runs-on: sonic-build
 
     steps:
     - name: Gain back workspace permissions # https://github.com/actions/checkout/issues/211
