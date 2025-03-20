@@ -92,7 +92,7 @@ diff --git a/platform/broadcom/sonic-platform-modules-accton/debian/rules b/plat
 old mode 100644
 new mode 100755
 diff --git a/rules/config b/rules/config
-index 3d3a81ce6..e93259195 100644
+index 3d3a81ce6..698093663 100644
 --- a/rules/config
 +++ b/rules/config
 @@ -10,7 +10,7 @@
@@ -140,6 +140,15 @@ index 3d3a81ce6..e93259195 100644
  SONIC_DPKG_CACHE_SOURCE ?= /var/cache/sonic/artifacts
  
  # Default VS build memory preparation
+@@ -153,7 +153,7 @@ INCLUDE_RESTAPI ?= n
+ INCLUDE_NAT = y
+ 
+ # INCLUDE_DHCP_RELAY - build and install dhcp-relay package
+-INCLUDE_DHCP_RELAY = y
++INCLUDE_DHCP_RELAY = n
+ 
+ # INCLUDE_DHCP_SERVER - build and install dhcp-server package
+ INCLUDE_DHCP_SERVER ?= n
 @@ -180,10 +180,10 @@ ENABLE_NATIVE_WRITE = y
  INCLUDE_MACSEC = y
  

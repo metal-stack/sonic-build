@@ -47,7 +47,7 @@ jobs:
 
   sonic-broadcom:
     name: Build SONiC Broadcom
-    runs-on: self-hosted
+    runs-on: sonic-build
 
     steps:
     - name: Gain back workspace permissions # https://github.com/actions/checkout/issues/211
@@ -68,13 +68,14 @@ jobs:
     - name: build sonic-broadcom
       shell: bash
       run: |
-        git clone -b 202311 --recurse-submodules https://github.com/sonic-net/sonic-buildimage.git
+        git clone -b 202411.0 --recurse-submodules https://github.com/edge-core/sonic-buildimage/
         cd sonic-buildimage
-        git apply ../patches/202311-accton-platform-support.patch
         git apply ../patches/enable-build.patch
+        git apply ../patches/lldp.patch
+        git apply ../patches/frr-pythontools.patch
         make init
         make configure PLATFORM=broadcom
-        make SONIC_BUILD_JOBS=12 ENABLE_ZTP=y target/sonic-broadcom.bin
+        make SONIC_BUILD_JOBS=12 target/sonic-broadcom.bin
         ls -l target
 
     - name: Upload Release Asset
