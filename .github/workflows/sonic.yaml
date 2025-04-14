@@ -9,7 +9,7 @@ on:
       - main
 
 env:
-  SONIC_VERSION: 202411.0
+  SONIC_VERSION: "202411.0"
 
 jobs:
   sonic-broadcom:
