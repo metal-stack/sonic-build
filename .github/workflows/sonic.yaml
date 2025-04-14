@@ -35,7 +35,7 @@ jobs:
     - name: build sonic-broadcom
       shell: bash
       run: |
-        git clone -b ${{ SONIC_VERSION }} --recurse-submodules https://github.com/edge-core/sonic-buildimage/
+        git clone -b ${{ env.SONIC_VERSION }} --recurse-submodules https://github.com/edge-core/sonic-buildimage/
         cd sonic-buildimage
         git apply ../patches/01-enable-build.patch
         git apply ../patches/02-frr-pythontools.patch
@@ -52,7 +52,7 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         files: |
-          target/sonic-broadcom-${{ SONIC_VERSION }}.img.gz
+          target/sonic-broadcom-${{ env.SONIC_VERSION }}.img.gz
 
 
   release-drafter:
@@ -91,7 +91,7 @@ jobs:
     - name: build sonic-vs
       shell: bash
       run: |
-        git clone -b ${{ SONIC_VERSION }} --recurse-submodules https://github.com/edge-core/sonic-buildimage/
+        git clone -b ${{ env.SONIC_VERSION }} --recurse-submodules https://github.com/edge-core/sonic-buildimage/
         cd sonic-buildimage
         git apply ../patches/01-enable-build.patch
         git apply ../patches/02-frr-pythontools.patch
