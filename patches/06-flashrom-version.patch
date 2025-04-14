@@ -1,0 +1,64 @@
+diff --git a/files/build/versions/host-image/versions-deb-bookworm b/files/build/versions/host-image/versions-deb-bookworm
+index 9fdcd9b21..f816e9aa3 100644
+--- a/files/build/versions/host-image/versions-deb-bookworm
++++ b/files/build/versions/host-image/versions-deb-bookworm
+@@ -49,7 +49,7 @@ file==1:5.44-3
+ firmware-amd-graphics==20230210-5
+ firmware-linux-nonfree==20230210-5
+ firmware-misc-nonfree==20230210-5
+-flashrom==0.9.7
++flashrom==1.5.1
+ fontconfig-config==2.14.1-4
+ fonts-dejavu-core==2.37-6
+ freeipmi-common==1.6.10-1
+diff --git a/rules/flashrom.mk b/rules/flashrom.mk
+index 7ca74c460..20f5570e2 100644
+--- a/rules/flashrom.mk
++++ b/rules/flashrom.mk
+@@ -1,7 +1,7 @@
+ # flashrom package
+ #
+ 
+-FLASHROM_VERSION_FULL = 0.9.7
++FLASHROM_VERSION_FULL = 1.5.1
+ 
+ export FLASHROM_VERSION_FULL
+ 
+diff --git a/src/flashrom/Makefile b/src/flashrom/Makefile
+index 70365d648..1dcc38e71 100644
+--- a/src/flashrom/Makefile
++++ b/src/flashrom/Makefile
+@@ -11,7 +11,6 @@ $(addprefix $(DEST)/, $(MAIN_TARGET)): $(DEST)/% :
+ 	git clone https://github.com/flashrom/flashrom.git flashrom-$(FLASHROM_VERSION_FULL)
+ 	pushd ./flashrom-$(FLASHROM_VERSION_FULL)
+ 
+-	# Check out tag: tags/0.9.7
+ 	git checkout -b flashrom-src v$(FLASHROM_VERSION_FULL)
+ 
+ 	# Apply patch series
+diff --git a/src/flashrom/patch/0002-Flashrom-support-for-Intel-Rangeley-and-Denverton-CP.patch b/src/flashrom/patch/0002-Flashrom-support-for-Intel-Rangeley-and-Denverton-CP.patch
+index ab77df9c4..7a6d45876 100644
+--- a/src/flashrom/patch/0002-Flashrom-support-for-Intel-Rangeley-and-Denverton-CP.patch
++++ b/src/flashrom/patch/0002-Flashrom-support-for-Intel-Rangeley-and-Denverton-CP.patch
+@@ -188,7 +188,7 @@ index 6e41e5d..d66039a 100644
+ -SVNVERSION := $(shell LC_ALL=C svnversion -cn . 2>/dev/null | sed -e "s/.*://" -e "s/\([0-9]*\).*/\1/" | grep "[0-9]" || LC_ALL=C svn info . 2>/dev/null | awk '/^Revision:/ {print $$2 }' | grep "[0-9]" || LC_ALL=C git svn info . 2>/dev/null | awk '/^Revision:/ {print $$2 }' | grep "[0-9]" || echo unknown)
+ +SVNVERSION := r1781
+  
+- RELEASE := 0.9.7
++ RELEASE := 1.5.1
+ -VERSION := $(RELEASE)-r$(SVNVERSION)
+ +VERSION := $(RELEASE)-$(SVNVERSION)
+  RELEASENAME ?= $(VERSION)
+diff --git a/src/flashrom/patch/0003-Debian-package-base.patch b/src/flashrom/patch/0003-Debian-package-base.patch
+index 6cccfd686..37017ff06 100644
+--- a/src/flashrom/patch/0003-Debian-package-base.patch
++++ b/src/flashrom/patch/0003-Debian-package-base.patch
+@@ -4,7 +4,7 @@ index 0000000..a7acb04
+ --- /dev/null
+ +++ b/debian/changelog
+ @@ -0,0 +1,5 @@
+-+flashrom (0.9.7) unstable; urgency=low
+++flashrom (1.5.1) unstable; urgency=low
+ +
+ +  * Initial release
+ +
