@@ -5,8 +5,6 @@ on:
     types:
       - published
 
-  push:
-
 env:
   SONIC_VERSION: "202411.0"
 
@@ -16,10 +14,6 @@ jobs:
     runs-on: sonic-build
 
     steps:
-      - name: fix permissions
-        run: |
-          sudo usermod -g sudo metal
-
       - name: Gain back workspace permissions # https://github.com/actions/checkout/issues/211
         run: |
           [ -d "${GITHUB_WORKSPACE}" ] && sudo chown -R $USER:$USER ${GITHUB_WORKSPACE}
