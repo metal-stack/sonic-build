@@ -49,6 +49,7 @@ jobs:
           make configure PLATFORM=broadcom
           make SONIC_BUILD_JOBS=12 target/sonic-broadcom.bin
           ls -l target
+          sudo mv target/sonic-broadcom.bin ../..
 
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v2
@@ -63,44 +64,44 @@ jobs:
     runs-on: sonic-build
 
     steps:
-    - name: Gain back workspace permissions # https://github.com/actions/checkout/issues/211
-      run: |
-        [ -d "${GITHUB_WORKSPACE}" ] && sudo chown -R $USER:$USER ${GITHUB_WORKSPACE}
+      - name: Gain back workspace permissions # https://github.com/actions/checkout/issues/211
+        run: |
+          [ -d "${GITHUB_WORKSPACE}" ] && sudo chown -R $USER:$USER ${GITHUB_WORKSPACE}
 
-    - name: Checkout
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Install build requirements
-      shell: bash
-      run: |
-        sudo apt update
-        sudo apt install --yes j2cli
-        sudo mkdir -p /var/cache/sonic/artifacts
-        sudo chmod 777 /var/cache/sonic/artifacts
+      - name: Install build requirements
+        shell: bash
+        run: |
+          sudo apt update
+          sudo apt install --yes j2cli
+          sudo mkdir -p /var/cache/sonic/artifacts
+          sudo chmod 777 /var/cache/sonic/artifacts
 
-    - name: build sonic-vs
-      shell: bash
-      run: |
-        git clone -b ${{ env.SONIC_VERSION }} --recurse-submodules https://github.com/edge-core/sonic-buildimage/
-        cd sonic-buildimage
-        git apply ../patches/01-enable-build.patch
-        git apply ../patches/02-frr-pythontools.patch
-        git apply ../patches/03-lldp.patch
-        git apply ../patches/04-split-mode.patch
-        git apply ../patches/05-config-plugin.patch
-        make init
-        make configure PLATFORM=vs
-        make SONIC_BUILD_JOBS=12 target/sonic-broadcom.bin
-        ls -l target
+      - name: build sonic-vs
+        shell: bash
+        run: |
+          git clone -b ${{ env.SONIC_VERSION }} --recurse-submodules https://github.com/edge-core/sonic-buildimage/
+          cd sonic-buildimage
+          git apply ../patches/01-enable-build.patch
+          git apply ../patches/02-frr-pythontools.patch
+          git apply ../patches/03-lldp.patch
+          git apply ../patches/04-split-mode.patch
+          git apply ../patches/05-config-plugin.patch
+          make init
+          make configure PLATFORM=vs
+          make SONIC_BUILD_JOBS=12 target/sonic-vs.img.gz
+          ls -l target
+          sudo mv target/sonic-vs.img.gz ../..
 
-    - name: Upload Release Asset
-      uses: softprops/action-gh-release@v2
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        files: |
-          target/sonic-vs.img.gz
-      if: ${{ github.event_name == 'release' }}
-
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            target/sonic-vs.img.gz
+        if: ${{ github.event_name == 'release' }}
 
   release-drafter:
     runs-on: ubuntu-24.04
