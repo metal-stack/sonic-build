@@ -88,9 +88,6 @@ index e3f0e46cc..1f7b0f763 100755
  include $(PLATFORM_PATH)/docker-syncd-brcm.mk
  include $(PLATFORM_PATH)/docker-syncd-brcm-rpc.mk
  include $(PLATFORM_PATH)/docker-saiserver-brcm.mk
-diff --git a/platform/broadcom/sonic-platform-modules-accton/debian/rules b/platform/broadcom/sonic-platform-modules-accton/debian/rules
-old mode 100644
-new mode 100755
 diff --git a/rules/config b/rules/config
 index 3d3a81ce6..698093663 100644
 --- a/rules/config
@@ -171,6 +168,19 @@ index 3d3a81ce6..698093663 100644
  SONIC_VERSION_CACHE_SOURCE ?= $(SONIC_DPKG_CACHE_SOURCE)/vcache
  
  # SONiC docker registry
+diff --git a/rules/docker-dhcp-relay.mk b/rules/docker-dhcp-relay.mk
+index c8aa011d4..df413da85 100644
+--- a/rules/docker-dhcp-relay.mk
++++ b/rules/docker-dhcp-relay.mk
+@@ -35,7 +35,7 @@ ifeq ($(INCLUDE_KUBERNETES),y)
+ $(DOCKER_DHCP_RELAY)_DEFAULT_FEATURE_OWNER = kube
+ endif
+ 
+-$(DOCKER_DHCP_RELAY)_DEFAULT_FEATURE_STATE_ENABLED = y
++$(DOCKER_DHCP_RELAY)_DEFAULT_FEATURE_STATE_ENABLED = n
+ 
+ ifeq ($(INCLUDE_DHCP_RELAY),y)
+ ifeq ($(INSTALL_DEBUG_TOOLS),y)
 diff --git a/sonic-slave-bookworm/Dockerfile.j2 b/sonic-slave-bookworm/Dockerfile.j2
 index 4e2c5e1eb..90a66d940 100644
 --- a/sonic-slave-bookworm/Dockerfile.j2
