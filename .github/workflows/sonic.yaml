@@ -45,6 +45,7 @@ jobs:
           git apply ../patches/03-lldp.patch
           git apply ../patches/04-split-mode.patch
           git apply ../patches/05-config-plugin.patch
+          git apply ../patches/06-remove-dhcp-relay-from-features.patch
           make init
           make configure PLATFORM=broadcom
           make SONIC_BUILD_JOBS=12 target/sonic-broadcom.bin
@@ -89,6 +90,7 @@ jobs:
           git apply ../patches/03-lldp.patch
           git apply ../patches/04-split-mode.patch
           git apply ../patches/05-config-plugin.patch
+          git apply ../patches/06-remove-dhcp-relay-from-features.patch
           make init
           make configure PLATFORM=vs
           make SONIC_BUILD_JOBS=12 target/sonic-vs.img.gz
