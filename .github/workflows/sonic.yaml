@@ -45,20 +45,11 @@ jobs:
           git apply ../patches/03-lldp.patch
           git apply ../patches/04-split-mode.patch
           git apply ../patches/05-config-plugin.patch
-          git apply ../patches/06-remove-dhcp-relay-from-features.patch
           make init
           make configure PLATFORM=broadcom
           make SONIC_BUILD_JOBS=12 target/sonic-broadcom.bin
           ls -l target
           sudo mv target/sonic-broadcom.bin ../..
-
-      - name: Upload Release Asset
-        uses: softprops/action-gh-release@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          files: |
-            target/sonic-broadcom-${{ env.SONIC_VERSION }}.img.gz
-        if: ${{ github.event_name == 'release' }}
 
   sonic-vs:
     name: Build SONiC VS
@@ -90,7 +81,6 @@ jobs:
           git apply ../patches/03-lldp.patch
           git apply ../patches/04-split-mode.patch
           git apply ../patches/05-config-plugin.patch
-          git apply ../patches/06-remove-dhcp-relay-from-features.patch
           make init
           make configure PLATFORM=vs
           make SONIC_BUILD_JOBS=12 target/sonic-vs.img.gz
