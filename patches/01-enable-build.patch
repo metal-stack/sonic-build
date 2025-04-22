@@ -88,11 +88,8 @@ index e3f0e46cc..1f7b0f763 100755
  include $(PLATFORM_PATH)/docker-syncd-brcm.mk
  include $(PLATFORM_PATH)/docker-syncd-brcm-rpc.mk
  include $(PLATFORM_PATH)/docker-saiserver-brcm.mk
-diff --git a/platform/broadcom/sonic-platform-modules-accton/debian/rules b/platform/broadcom/sonic-platform-modules-accton/debian/rules
-old mode 100644
-new mode 100755
 diff --git a/rules/config b/rules/config
-index 3d3a81ce6..e93259195 100644
+index 3d3a81ce6..b38c4ed2a 100644
 --- a/rules/config
 +++ b/rules/config
 @@ -10,7 +10,7 @@
