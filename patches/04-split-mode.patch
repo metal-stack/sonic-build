@@ -1,0 +1,17 @@
+diff --git a/dockers/docker-fpm-frr/docker_init.sh b/dockers/docker-fpm-frr/docker_init.sh
+index e24585945..205441084 100755
+--- a/dockers/docker-fpm-frr/docker_init.sh
++++ b/dockers/docker-fpm-frr/docker_init.sh
+@@ -77,9 +77,9 @@ if [ -z "$CONFIG_TYPE" ] || [ "$CONFIG_TYPE" == "separated" ]; then
+     echo "no service integrated-vtysh-config" > /etc/frr/vtysh.conf
+     rm -f /etc/frr/frr.conf
+ elif [ "$CONFIG_TYPE" == "split" ]; then
+-    echo "no service integrated-vtysh-config" > /etc/frr/vtysh.conf
+-    rm -f /etc/frr/frr.conf
+-    write_default_zebra_config /etc/frr/zebra.conf
++    echo "service integrated-vtysh-config" > /etc/frr/vtysh.conf
++    rm -f /etc/frr/bgpd.conf /etc/frr/zebra.conf /etc/frr/staticd.conf
++    write_default_zebra_config /etc/frr/frr.conf
+ elif [ "$CONFIG_TYPE" == "split-unified" ]; then
+     echo "service integrated-vtysh-config" > /etc/frr/vtysh.conf
+     rm -f /etc/frr/bgpd.conf /etc/frr/zebra.conf /etc/frr/staticd.conf

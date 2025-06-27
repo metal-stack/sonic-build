@@ -1,0 +1,13 @@
+diff --git a/dockers/docker-lldp/lldpd.conf.j2 b/dockers/docker-lldp/lldpd.conf.j2
+index 59d20f477..b37da3ddd 100644
+--- a/dockers/docker-lldp/lldpd.conf.j2
++++ b/dockers/docker-lldp/lldpd.conf.j2
+@@ -19,5 +19,8 @@ configure ports eth0 lldp portidsubtype local {{ mgmt_if.port_name }}
+ configure system ip management pattern {{ mgmt_if.ipv4 }}
+ {% endif %}
+ configure system hostname {{ DEVICE_METADATA['localhost']['hostname'] }}
++{% if LLDP and LLDP['GLOBAL'] and LLDP['GLOBAL']['hello_time'] %}
++configure lldp tx-interval {{ LLDP['GLOBAL']['hello_time'] }}
++{% endif %}
+ {# pause lldpd operations until all interfaces are well configured, resume command will run in lldpmgrd #}
+ pause
